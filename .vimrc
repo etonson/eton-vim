@@ -53,7 +53,12 @@ Plugin 'jplaut/vim-arduino-ino'
 
 "vim-arduino-syntax
 Plugin 'sudar/vim-arduino-syntax'
+
+"vim-emmt
+Plugin 'mattn/emmet-vim'
+
 filetype plugin indent on  
+
 
 
 "==================================================================="
@@ -149,3 +154,6 @@ nmap ,o :RopeFindOccurrences<CR>
 let g:vim_arduino_map_keys = 0
 "To open the serial monitor automatically after each deploy
 let g:vim_arduino_auto_open_serial = 1
+
+"vim-emmt
+let g:user_emmet_expandabbr_key = '<c-e>'
