@@ -43,7 +43,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/javacomplete'
 
 "pythondiction
-Plugin 'etonson/Pydiction'
+Plugin 'rkulla/Pydiction'
 
 "python-mood
 Plugin 'klen/python-mode'
