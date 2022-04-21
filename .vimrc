@@ -27,8 +27,18 @@ Plugin 'gmarik/vundle'
 "Active plugins
 "You can disable or add new ones here:
 
-"THE-NERD-tree
-Plugin 'vim-scripts/The-NERD-tree'
+" 程式碼自動完成，安裝完外掛還需要額外配置才可以使用
+Plugin 'ycm-core/YouCompleteMe'
+
+" 用來提供一個導航目錄的側邊欄
+Plugin 'scrooloose/nerdtree'
+
+" 可以使 nerdtree 的 tab 更加友好些
+Plugin 'jistr/vim-nerdtree-tabs'
+
+
+" 可以在導航目錄中看到 git 版本資訊
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 "AutoComplPop
 Plugin 'vim-scripts/AutoComplPop'
@@ -36,23 +46,31 @@ Plugin 'vim-scripts/AutoComplPop'
 "AutoPairs
 Plugin 'jiangmiao/auto-pairs'
 
+" Vim狀態列外掛，包括顯示行號，列號，檔案型別，檔名，以及Git狀態
+Plugin 'vim-airline/vim-airline'
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" 可以快速對齊的外掛
+Plugin 'junegunn/vim-easy-align'
+
+" 可以在文件中顯示 git 資訊
+Plugin 'airblade/vim-gitgutter'
+
+" markdown 外掛
+Plugin 'iamcco/mathjax-support-for-mkdp'
+Plugin 'iamcco/markdown-preview.vim'
+
+
+" 下面兩個外掛要配合使用，可以自動生成程式碼塊
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+
 "syntastic
 Plugin 'scrooloose/syntastic'
 
 "java complete
 Plugin 'vim-scripts/javacomplete'
-
-"pythondiction
-Plugin 'rkulla/Pydiction'
-
-"python-mood
-Plugin 'klen/python-mode'
-
-"vim-arduino
-Plugin 'jplaut/vim-arduino-ino'
-
-"vim-arduino-syntax
-Plugin 'sudar/vim-arduino-syntax'
 
 "vim-emmt
 Plugin 'mattn/emmet-vim'
@@ -129,26 +147,6 @@ let g:syntastic_check_on_open = 1
 setlocal omnifunc=javacomplete#Complete
 autocmd FileType java inoremap <buffer> . .<C-X><C-O><C-P>
 
-"pydiction setting-----------------
-filetype plugin on
-let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
-let g:pydiction_menu_height = 20 "defalut g:pydiction_menu_height == 15
-
-"python-mode----------------------------
-" don't use linter, we use syntastic for that
-let g:pymode_lint_on_write = 0
-let g:pymode_lint_signs = 0
-" don't fold python code on open
-let g:pymode_folding = 0
-" don't load rope by default. Change to 1 to use rope
-let g:pymode_rope = 0
-" open definitions on same window, and custom mappings for definitions and
-" occurrences
-let g:pymode_rope_goto_definition_bind = ',d'
-let g:pymode_rope_goto_definition_cmd = 'e'
-nmap ,D :tab split<CR>:PymodePython rope.goto()<CR>
-nmap ,o :RopeFindOccurrences<CR>
-
 "vim-arduino----------------------------
 "The default key mapping can be turned off
 let g:vim_arduino_map_keys = 0
@@ -157,3 +155,38 @@ let g:vim_arduino_auto_open_serial = 1
 
 "vim-emmt
 let g:user_emmet_expandabbr_key = '<c-e>'
+
+"設定error和warning的提示符，如果沒有設定，ycm會以syntastic的
+" g:syntastic_warning_symbol 和 g:syntastic_error_symbol 這兩個為準
+let g:ycm_error_symbol='>>'
+let g:ycm_warning_symbol='>*'
+
+"vim-YouCompleteMe----------------------------
+"設定跳轉的快捷鍵，可以跳轉到definition和declaration
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nmap <F4> :YcmDiags<CR>
+
+"設定全域性配置檔案的路徑
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+"開啟基於tag的補全，可以在這之後新增需要的標籤路徑
+let g:ycm_collect_identifiers_from_tags_files = 1
+"開啟語義補全
+let g:ycm_seed_identifiers_with_syntax = 1
+"在接受補全後不分裂出一個視窗顯示接受的項
+set completeopt-=preview
+"不顯示開啟vim時檢查ycm_extra_conf檔案的資訊
+let g:ycm_confirm_extra_conf=0
+"每次重新生成匹配項，禁止快取匹配項
+let g:ycm_cache_omnifunc=0
+"在註釋中也可以補全
+let g:ycm_complete_in_comments=1
+"輸入第一個字元就開始補全
+let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_key_invoke_completion = '<C-F>' 
+"文件路徑
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"代碼提示框高亮
+highlight PMenu ctermbg=red ctermfg=15
+highlight PMenuSel ctermbg=14 ctermfg=16
