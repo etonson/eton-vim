@@ -1,4 +1,4 @@
-# Vim + Pydiction 自動安裝腳本
+# Vim 相關設定檔自動安裝腳本
 
 此專案提供一鍵安裝 Vim Pydiction 補全環境的腳本，適用於 Ubuntu/Debian 系統。
 
